@@ -1,6 +1,7 @@
 import { User } from "../../model/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface IRequest {
   user_id: string;
 }
@@ -8,7 +9,8 @@ interface IRequest {
 class ListAllUsersUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  execute({ user_id }: IRequest): User[] {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  execute({ user_id }): User[] {
     const userIsAdmin = this.usersRepository.findById(user_id);
 
     if (!userIsAdmin) {

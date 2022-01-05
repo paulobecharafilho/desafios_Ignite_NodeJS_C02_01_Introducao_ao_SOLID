@@ -1,0 +1,220 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "C_02_01_Introducao_ao_SOLID",
+    "description": "Documentation of Challange 01 of Chapter 02 of NodeJS in RocketSeat",
+    "version": "1.0.0",
+    "contact": {
+      "email": "paulomarcelobechara@hotmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a new User",
+        "description": "Create a user with name and email",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Paulo Bechara",
+                  "email": "paulomarcelobechara@hotmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "date"
+                    },
+                    "updated_at": {
+                      "type": "date"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User already exists with this email"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List All users if you're admin",
+        "description": "List all users only if the user is ADMIN. Because of that, you have to pass your ID in your request body",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "type":"string"  
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "type": "array",
+                "itens": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "date"
+                    },
+                    "updated_at": {
+                      "type": "date"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["/users/user_id"],
+        "summary": "Get a specific user by ID",
+        "description": "Get a specific user by it's ID",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User got by its ID",
+            "content": {
+              "application/json": {
+                "schema": { 
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "date"
+                    },
+                    "updated_at": {
+                      "type": "date"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description":"User doesn't exist"
+          }
+        }
+      }
+    },
+
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": ["/users/user_id/admin"],
+        "summary": "Turn a user ADMIN",
+        "description": "Make a user an ADMIN",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "This ID is now an ADMIN",
+            "content": {
+              "application/json": {
+                "schema": { 
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "date"
+                    },
+                    "updated_at": {
+                      "type": "date"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description":"User doesn't exists"
+          }
+        }
+      }
+    }
+  } 
+}
